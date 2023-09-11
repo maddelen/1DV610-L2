@@ -10,16 +10,23 @@ template.innerHTML = `
 <style>
 
   #my-word-counter-container {
-    background-color: none;
+    background-color: white;
     padding: 20px;
     text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
 
+  #input-text {
+    border: 1px solid #333;
+    outline: none;
+    border-radius: 5px;
+  }
 </style>
 
 <div id="my-word-counter">
   <div id="my-word-counter-container">
-    <h1>Word Count</h1>
+    <h1>The word counter</h1>
     <textarea id="input-text" rows="10" cols="50" placeholder="Enter your text here..."></textarea>
     <p>Word Count: <span id="word-count">0</span></p>
   </div>
