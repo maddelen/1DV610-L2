@@ -18,6 +18,9 @@ template.innerHTML = `
   }
 
   #my-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     background: url("${IMG_URL}");
@@ -26,25 +29,11 @@ template.innerHTML = `
     background-position: center;
     overflow: hidden;
   }
-  
-  #menu {
-    background-color: #f7f7f7;
-    color: #fff;
-    text-align: center;
-    width: fit-content;
-    margin: 10px auto;
-    padding: 10px 30px;
-    border-radius: 50px;
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-  }
 
 </style>
 <div id="my-page-container">
-  <div id="menu">
-    <a href="#my-word-counter">Word Counter</a>
-  </div>
+<my-word-counter></my-word-counter>
 </div>
-    
 `
 
 customElements.define('my-page',
@@ -61,14 +50,6 @@ customElements.define('my-page',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
       
-      this.shadowRoot.querySelector('a[href="#my-word-counter"]').addEventListener('click', (event) => {
-        event.preventDefault()
-        console.log('Link clicked')
-        const wordCounterElement = document.querySelector('my-word-counter')
-        if (wordCounterElement) {
-          wordCounterElement.openModal()
-        }
-      })
     }
   }
 )

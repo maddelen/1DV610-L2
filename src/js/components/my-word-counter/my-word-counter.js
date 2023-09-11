@@ -8,27 +8,16 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
- .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-  }
 
   #my-word-counter-container {
-    background-color: #cce0ff;
+    background-color: none;
     padding: 20px;
     text-align: center;
   }
 
 </style>
 
-<div class="modal-overlay" id="my-word-counter">
+<div id="my-word-counter">
   <div id="my-word-counter-container">
     <h1>Word Count</h1>
     <textarea id="input-text" rows="10" cols="50" placeholder="Enter your text here..."></textarea>
@@ -46,7 +35,6 @@ customElements.define('my-word-counter',
    */
   class extends HTMLElement {
     #wordCount
-    #modalOverlay
 
     /**
      * Creates an instance of the current type.
@@ -59,16 +47,11 @@ customElements.define('my-word-counter',
 
       this.#wordCount = this.shadowRoot.querySelector('#word-count')
       this.inputText = this.shadowRoot.querySelector('#input-text')
-      this.#modalOverlay = document.createElement('div')
-      this.#modalOverlay = this.shadowRoot.querySelector('.modal-overlay')
-      this.#modalOverlay.className = 'modal-overlay'
+
 
       this.inputText.addEventListener('input', () => {
         this.countWords()
       })
-
-      document.body.appendChild(this.#modalOverlay)
-      this.#modalOverlay.appendChild(this)
     }
 
     countWords() {
@@ -78,11 +61,4 @@ customElements.define('my-word-counter',
       this.#wordCount.textContent = wordCount
     }
 
-    openModal() {
-      this.#modalOverlay.style.display = 'flex'
-    }
-
-    closeModal() {
-      this.#modalOverlay.style.display = 'none'
-    }
   })
