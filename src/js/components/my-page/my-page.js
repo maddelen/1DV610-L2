@@ -6,6 +6,7 @@
  */
 
 import '../my-word-counter'
+import '../my-text-to-morse-converter'
 
 const IMG_URL = (new URL('images/bg.jpg', import.meta.url)).href
 
@@ -30,9 +31,17 @@ template.innerHTML = `
     overflow: hidden;
   }
 
+  #components-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 </style>
 <div id="my-page-container">
-<my-word-counter></my-word-counter>
+  <div id="components-container">
+    <my-word-counter></my-word-counter>
+    <my-text-to-morse-converter></my-text-to-morse-converter>
+  </div>
 </div>
 `
 
@@ -49,7 +58,6 @@ customElements.define('my-page',
 
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
-      
     }
   }
 )

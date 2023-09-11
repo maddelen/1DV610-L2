@@ -11,6 +11,7 @@ template.innerHTML = `
 
   #my-word-counter-container {
     background-color: white;
+    margin: 10px;
     padding: 20px;
     text-align: center;
     border-radius: 5px;
@@ -67,5 +68,4 @@ customElements.define('my-word-counter',
       const wordCount = words.length
       this.#wordCount.textContent = wordCount
     }
-
   })
