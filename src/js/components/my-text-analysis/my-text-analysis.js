@@ -37,6 +37,7 @@ template.innerHTML = `
     <p>Word Count: <span id="word-count">0</span></p>
     <p>Character Count: <span id="character-count">0</span></p>
     <p>Sentence Count: <span id="sentence-count">0</span></p>
+    <p>Longest Word: <span id="longest-word"></span></p>
     <p class="error-message" id="error-message"></p>
   </div>
 </div>
@@ -54,6 +55,7 @@ customElements.define(
     #wordCount
     #characterCount
     #sentenceCount
+    #longestWord
     #errorMessage
 
     /**
@@ -67,6 +69,7 @@ customElements.define(
       this.#wordCount = this.shadowRoot.querySelector('#word-count')
       this.#characterCount = this.shadowRoot.querySelector('#character-count')
       this.#sentenceCount = this.shadowRoot.querySelector('#sentence-count')
+      this.#longestWord = this.shadowRoot.querySelector('#longest-word')
       this.#errorMessage = this.shadowRoot.querySelector('#error-message')
       this.inputText = this.shadowRoot.querySelector('#input-text')
 
@@ -78,9 +81,9 @@ customElements.define(
     /**
      * Validates the input text for invalid characters and word count limits.
      * If the input contains invalid characters or exceeds the word limit, appropriate error messages are displayed.
-     * Otherwise, it calculates and displays word count, character count, and sentence count.
+     * Otherwise, it calculates and displays word count, character count, sentence count. and the longest word.
      */
-    validateInput () {
+    validateInput() {
       const text = this.inputText.value
 
       // Check if the text contains < and > characters using a regex pattern.
@@ -91,23 +94,41 @@ customElements.define(
         this.#wordCount.textContent = 0
         this.#characterCount.textContent = 0
         this.#sentenceCount.textContent = 0
+        this.#longestWord.textContent = ''
       } else {
         // Calculate the word count.
         const words = text.split(/\s+/).filter(word => word !== '')
         const wordCount = words.length
 
-        // Check if the word count exceeds 2000.
         if (wordCount > 2000) {
           this.#errorMessage.textContent = 'Text cannot exceed 2000 words.'
           this.#wordCount.textContent = 0
           this.#characterCount.textContent = 0
           this.#sentenceCount.textContent = 0
+          this.#longestWord.textContent = ''
         } else {
           this.#errorMessage.textContent = ''
           this.countWords()
           this.countCharacters()
           this.countSentences()
+          this.findLongestWord(words)
         }
+      }
+    }
+
+    /**
+     * Finds the longest word in the input text.
+     * @param {string[]} words - Array of words in the input text.
+     */
+    findLongestWord(words) {
+      if (words.length === 0) {
+        this.#longestWord.textContent = ''
+      } else {
+        const longestWord = words.reduce((longest, current) => {
+          return current.length > longest.length ? current : longest
+        }, '')
+
+        this.#longestWord.textContent = longestWord
       }
     }
 
