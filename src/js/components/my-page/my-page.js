@@ -5,8 +5,8 @@
  * @version 1.0.0
  */
 
-import '../my-word-counter'
-import '../my-text-to-morse-converter'
+import '../my-text-analysis'
+// import '../my-text-to-morse-converter'
 
 const IMG_URL = (new URL('images/bg.jpg', import.meta.url)).href
 
@@ -39,8 +39,7 @@ template.innerHTML = `
 </style>
 <div id="my-page-container">
   <div id="components-container">
-    <my-word-counter></my-word-counter>
-    <my-text-to-morse-converter></my-text-to-morse-converter>
+    <my-text-analysis></my-text-analysis>
   </div>
 </div>
 `
