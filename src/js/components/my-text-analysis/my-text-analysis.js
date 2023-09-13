@@ -48,7 +48,7 @@ template.innerHTML = `
 customElements.define(
   'my-text-analysis',
   /**
-   * Represents a page.
+   * Represents a text analysis program.
    */
   class extends HTMLElement {
     #wordCount
