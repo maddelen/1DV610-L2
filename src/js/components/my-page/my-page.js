@@ -6,7 +6,6 @@
  */
 
 import '../my-text-analysis'
-// import '../my-text-to-morse-converter'
 
 const IMG_URL = (new URL('images/bg.jpg', import.meta.url)).href
 

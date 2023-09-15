@@ -44,7 +44,9 @@ Texten ska börja analyseras i realtid och du ska kunna se antalet ord, tecken, 
 1. Öppna upp terminalen i visual studio code.
 2. Skriv in `npm run dev`
 3. Öppna URL:en som finns liknande detta exempel: `Local:   http://localhost:5173/` i en webbläsare.
-4. Klicka i textfältet och skriv in följande kodsnutt:
+4. Klicka i textfältet och skriv in följande kodsnutt: ```<style> .colored-text {
+            color: blue;
+        }</style>```
 
 
 <b>Förväntad resultat:</b>
