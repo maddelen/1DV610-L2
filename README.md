@@ -3,7 +3,7 @@
 This is a student project in the course Mjukvarukvalitet 1dv610 at Linneuniversitetet.
 
 ## Description
-This application will be able to count the number of words you entered, the number of sentences and the number of characters.
+This application will be able to count the number of words you entered, the number of sentences and the number of characters. It will also let you know which word is the longest in your text input.
 
 ## Installation
 1. Clone the git repository and place it somewhere on your computer.
@@ -23,3 +23,9 @@ npm install
 ```bash
 npm run dev
 ```
+
+## How to use/test the methods
+
+Here is an example on how to use and test the methods, in this example the countSentences method is used.
+
+![test-method](./src/js/components/my-text-analysis-module/images/test-method.png)

@@ -1,11 +1,12 @@
 /**
  * The my-page web component module.
+ * This is just a "placeholder" for the text-analysis-app.
  *
  * @author Maddelen Hedenström <mh222vu@student.lnu.se>
  * @version 1.0.0
  */
 
-import '../my-text-analysis'
+import '../my-text-analysis-app'
 
 const IMG_URL = (new URL('images/bg.jpg', import.meta.url)).href
 

@@ -83,7 +83,7 @@ customElements.define(
      * If the input contains invalid characters or exceeds the word limit, appropriate error messages are displayed.
      * Otherwise, it calculates and displays word count, character count, sentence count. and the longest word.
      */
-    validateInput() {
+    validateInput () {
       const text = this.inputText.value
 
       // Check if the text contains < and > characters using a regex pattern.
@@ -118,9 +118,10 @@ customElements.define(
 
     /**
      * Finds the longest word in the input text.
+     *
      * @param {string[]} words - Array of words in the input text.
      */
-    findLongestWord(words) {
+    findLongestWord (words) {
       if (words.length === 0) {
         this.#longestWord.textContent = ''
       } else {
