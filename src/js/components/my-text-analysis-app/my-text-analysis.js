@@ -125,9 +125,13 @@ customElements.define(
       if (words.length === 0) {
         this.#longestWord.textContent = ''
       } else {
-        const longestWord = words.reduce((longest, current) => {
-          return current.length > longest.length ? current : longest
-        }, '')
+        let longestWord = words[0] // Initialize with the first word
+
+        for (let i = 1; i < words.length; i++) {
+          if (words[i].length > longestWord.length) {
+            longestWord = words[i]
+          }
+        }
 
         this.#longestWord.textContent = longestWord
       }
