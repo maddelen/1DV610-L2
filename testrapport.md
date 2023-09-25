@@ -33,7 +33,7 @@ Nu borde startsidan av applikationen visas.
 
 
 <b>Förväntad resultat:</b>
-Texten ska börja analyseras i realtid och du ska kunna se antalet ord, tecken, meningar och vilket det längsta ordet i din text är.
+Texten ska börja analyseras i realtid och du ska kunna se antalet ord, tecken, meningar och vilket det längsta ordet i din text är. Du ska även kunna se en ytterligare analys av texten som visar hur många uppercase, lowercase, siffror, blanksteg och specialtecken som finns i texten.
 
 <hr>
 
