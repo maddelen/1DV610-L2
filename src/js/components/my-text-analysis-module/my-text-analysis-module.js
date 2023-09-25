@@ -24,10 +24,8 @@ export class MyTextAnalysisModule {
       errorMessage: ''
     }
 
-    // Check if the text contains < and > characters using a regex pattern.
-    const invalidCharacterPattern = /[<>]/
-
-    if (invalidCharacterPattern.test(text)) {
+    // Check if the text contains < and > characters.
+    if (text.includes('<') || text.includes('>')) {
       result.errorMessage = 'The characters < and > are not allowed'
       return result
     }
@@ -46,7 +44,7 @@ export class MyTextAnalysisModule {
     result.sentenceCount = text.split(/[.!?]+/).filter(sentence => sentence !== '').length
 
     if (words.length > 0) {
-      let longestWord = words[0] // Initialize with the first word.
+      let longestWord = words[0]
 
       for (let i = 1; i < words.length; i++) {
         if (words[i].length > longestWord.length) {
@@ -67,8 +65,28 @@ export class MyTextAnalysisModule {
    * @returns {number} - The word count.
    */
   countWords (text) {
-    const words = text.split(/\s+/).filter(word => word !== '')
-    return words.length
+    const wordSeparators = [' ', '\t', '\n', '\r', '\f', '\v'] // List of word separators
+    let wordCount = 0
+    let isInsideWord = false
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i)
+
+      if (wordSeparators.includes(char)) {
+        if (isInsideWord) {
+          wordCount++
+          isInsideWord = false
+        }
+      } else {
+        isInsideWord = true
+      }
+    }
+
+    if (isInsideWord) {
+      wordCount++
+    }
+
+    return wordCount
   }
 
   /**
@@ -88,8 +106,22 @@ export class MyTextAnalysisModule {
    * @returns {number} - The sentence count.
    */
   countSentences (text) {
-    const sentences = text.split(/[.!?]+/).filter(sentence => sentence !== '')
-    return sentences.length
+    const sentenceEndings = ['.', '!', '?']
+    let sentenceCount = 0
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i)
+
+      if (sentenceEndings.includes(char)) {
+        sentenceCount++
+
+        while (i < text.length - 1 && sentenceEndings.includes(text.charAt(i + 1))) {
+          i++
+        }
+      }
+    }
+
+    return sentenceCount
   }
 
   /**
@@ -104,7 +136,7 @@ export class MyTextAnalysisModule {
     if (words.length === 0) {
       return ''
     } else {
-      let longestWord = words[0] // Initialize with the first word.
+      let longestWord = words[0]
 
       for (let i = 1; i < words.length; i++) {
         if (words[i].length > longestWord.length) {
@@ -114,5 +146,39 @@ export class MyTextAnalysisModule {
 
       return longestWord
     }
+  }
+
+  /**
+   * Provides character statistics.
+   *
+   * @param {string} text - The input text to count characters from.
+   * @returns {object} - An object containing the character count and statistics.
+   */
+  countStatistics (text) {
+    const characterStatistics = {
+      uppercaseCount: 0,
+      lowercaseCount: 0,
+      digitCount: 0,
+      whitespaceCount: 0,
+      specialCharacterCount: 0
+    }
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i)
+
+      if (char >= 'A' && char <= 'Z') {
+        characterStatistics.uppercaseCount++
+      } else if (char >= 'a' && char <= 'z') {
+        characterStatistics.lowercaseCount++
+      } else if (char >= '0' && char <= '9') {
+        characterStatistics.digitCount++
+      } else if (char === ' ' || char === '\t' || char === '\n' || char === '\r' || char === '\f') {
+        characterStatistics.whitespaceCount++
+      } else {
+        characterStatistics.specialCharacterCount++
+      }
+    }
+
+    return characterStatistics
   }
 }
