@@ -15,19 +15,19 @@ export class MyTextAnalysisModule {
    * @param {string} text - The input text to analyze.
    * @returns {object} - An object containing the analysis results or error messages.
    */
-  validateInput(text) {
+  validateInput (text) {
     const validationError = {
       errorMessage: ''
     }
-  
+
     if (text.includes('<') || text.includes('>')) {
       validationError.errorMessage = 'The characters < and > are not allowed'
     } else if (text.split(/\s+/).filter(word => word !== '').length > 2000) {
       validationError.errorMessage = 'Text cannot exceed 2000 words.'
     }
-  
+
     return validationError
-  }  
+  }
 
   /**
    * Counts the number of characters in the input text.
