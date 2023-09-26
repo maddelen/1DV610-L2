@@ -89,42 +89,42 @@ export class MyTextAnalysisModule {
   }
 
   /**
- * Counts the number of vowels in the input text.
- *
- * @param {string} text - The input text to count vowels from.
- * @returns {number} - The number of vowels.
- */
-countVowels(text) {
-  const vowels = 'aeiouAEIOU'
-  let vowelCount = 0
+   * Counts the number of vowels in the input text.
+   *
+   * @param {string} text - The input text to count vowels from.
+   * @returns {number} - The number of vowels.
+   */
+  countVowels (text) {
+    const vowels = 'aeiouAEIOU'
+    let vowelCount = 0
 
-  for (let i = 0; i < text.length; i++) {
-    if (vowels.includes(text.charAt(i))) {
-      vowelCount++
+    for (let i = 0; i < text.length; i++) {
+      if (vowels.includes(text.charAt(i))) {
+        vowelCount++
+      }
     }
+
+    return vowelCount
   }
 
-  return vowelCount
-}
+  /**
+   * Counts the number of consonants in the input text.
+   *
+   * @param {string} text - The input text to count consonants from.
+   * @returns {number} - The number of consonants.
+   */
+  countConsonants (text) {
+    const consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+    let consonantCount = 0
 
-/**
- * Counts the number of consonants in the input text.
- *
- * @param {string} text - The input text to count consonants from.
- * @returns {number} - The number of consonants.
- */
-countConsonants(text) {
-  const consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
-  let consonantCount = 0
-
-  for (let i = 0; i < text.length; i++) {
-    if (consonants.includes(text.charAt(i))) {
-      consonantCount++
+    for (let i = 0; i < text.length; i++) {
+      if (consonants.includes(text.charAt(i))) {
+        consonantCount++
+      }
     }
-  }
 
-  return consonantCount
-}
+    return consonantCount
+  }
 
   /**
    * Provides character statistics.

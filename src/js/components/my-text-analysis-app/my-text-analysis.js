@@ -230,9 +230,8 @@ customElements.define(
      * Counts the number of vowels in the input text.
      *
      * @param {string} text - The input text to count vowels from.
-     * @returns {number} - The number of vowels.
      */
-    countVowels(text) {
+    countVowels (text) {
       const vowels = 'aeiouAEIOU'
       let vowelCount = 0
 
@@ -249,9 +248,8 @@ customElements.define(
      * Counts the number of consonants in the input text.
      *
      * @param {string} text - The input text to count consonants from.
-     * @returns {number} - The number of consonants.
      */
-    countConsonants(text) {
+    countConsonants (text) {
       const consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
       let consonantCount = 0
 
@@ -263,6 +261,7 @@ customElements.define(
 
       this.#consonantCount.textContent = consonantCount
     }
+
     /**
      * Calculates character statistics for the input text and updates the displayed character count.
      *
