@@ -15,79 +15,19 @@ export class MyTextAnalysisModule {
    * @param {string} text - The input text to analyze.
    * @returns {object} - An object containing the analysis results or error messages.
    */
-  validateInput (text) {
-    const result = {
-      wordCount: 0,
-      characterCount: 0,
-      sentenceCount: 0,
-      longestWord: '',
+  validateInput(text) {
+    const validationError = {
       errorMessage: ''
     }
-
-    // Check if the text contains < and > characters.
+  
     if (text.includes('<') || text.includes('>')) {
-      result.errorMessage = 'The characters < and > are not allowed'
-      return result
+      validationError.errorMessage = 'The characters < and > are not allowed'
+    } else if (text.split(/\s+/).filter(word => word !== '').length > 2000) {
+      validationError.errorMessage = 'Text cannot exceed 2000 words.'
     }
-
-    // Calculate the word count.
-    const words = text.split(/\s+/).filter(word => word !== '')
-    const wordCount = words.length
-
-    if (wordCount > 2000) {
-      result.errorMessage = 'Text cannot exceed 2000 words.'
-      return result
-    }
-
-    result.wordCount = wordCount
-    result.characterCount = text.length
-    result.sentenceCount = text.split(/[.!?]+/).filter(sentence => sentence !== '').length
-
-    if (words.length > 0) {
-      let longestWord = words[0]
-
-      for (let i = 1; i < words.length; i++) {
-        if (words[i].length > longestWord.length) {
-          longestWord = words[i]
-        }
-      }
-
-      result.longestWord = longestWord
-    }
-
-    return result
-  }
-
-  /**
-   * Counts the number of words in the input text.
-   *
-   * @param {string} text - The input text to count words from.
-   * @returns {number} - The word count.
-   */
-  countWords (text) {
-    const wordSeparators = [' ', '\t', '\n', '\r', '\f', '\v'] // List of word separators
-    let wordCount = 0
-    let isInsideWord = false
-
-    for (let i = 0; i < text.length; i++) {
-      const char = text.charAt(i)
-
-      if (wordSeparators.includes(char)) {
-        if (isInsideWord) {
-          wordCount++
-          isInsideWord = false
-        }
-      } else {
-        isInsideWord = true
-      }
-    }
-
-    if (isInsideWord) {
-      wordCount++
-    }
-
-    return wordCount
-  }
+  
+    return validationError
+  }  
 
   /**
    * Counts the number of characters in the input text.
@@ -180,5 +120,52 @@ export class MyTextAnalysisModule {
     }
 
     return characterStatistics
+  }
+
+  /**
+   * Analyzes the language of the input text.
+   *
+   * @param {string} text - The input text to analyze the language from.
+   * @returns {string} - The analyze language code (e.g., 'eng' for English).
+   */
+  analyzeLanguage (text) {
+    // Define common words/phrases in different languages
+    const languagePatterns = {
+      swe: ['och', 'det', 'att', 'är', 'i'],
+      eng: ['the', 'and', 'you', 'that', 'this'],
+      spa: ['el', 'y', 'que', 'en', 'por'],
+      fre: ['le', 'et', 'que', 'en', 'à'],
+      deu: ['und', 'die', 'der', 'ich', 'in']
+    }
+
+    const wordFrequency = {}
+
+    // Split the input text into words
+    const words = text.split(/\s+/)
+
+    words.forEach((word) => {
+      word = word.toLowerCase()
+      for (const language in languagePatterns) {
+        if (!wordFrequency[language]) {
+          wordFrequency[language] = 0
+        }
+        if (languagePatterns[language].includes(word)) {
+          wordFrequency[language]++
+        }
+      }
+    })
+
+    // Find the language with the highest word frequency
+    let analyzedLanguage = ''
+    let maxFrequency = 0
+
+    for (const language in wordFrequency) {
+      if (wordFrequency[language] > maxFrequency) {
+        analyzedLanguage = language
+        maxFrequency = wordFrequency[language]
+      }
+    }
+
+    return analyzedLanguage
   }
 }

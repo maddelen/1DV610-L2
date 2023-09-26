@@ -28,4 +28,4 @@ npm run dev
 
 Here is an example on how to use and test the methods, in this example the countSentences method is used.
 
-![test-method](./src/js/components/my-text-analysis-module/images/test-method.png)
+![test-method](./src/images/test-method.png)

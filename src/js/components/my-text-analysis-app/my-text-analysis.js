@@ -44,6 +44,15 @@ template.innerHTML = `
     border-radius: 5px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
+
+  #analyze-language {
+    background-color: white;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 50px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
 </style>
 
 <div id="my-text-analysis">
@@ -57,7 +66,7 @@ template.innerHTML = `
     <p class="error-message" id="error-message"></p>
   </div>
   <div id="statistics-container">
-  <p><h2>Other (random) stuff about your text: <span id="longest-word"></span></h2></p>
+  <p><h2>Other (random) stuff about your text:</h2></p>
   <div id="character-statistics">
     <p>Uppercase Characters: <span id="uppercase-count">0</span></p>
     <p>Lowercase Characters: <span id="lowercase-count">0</span></p>
@@ -66,7 +75,11 @@ template.innerHTML = `
     <p>Special Characters: <span id="special-character-count">0</span></p>
   </div>
 </div>
-
+<div id="analyze-language">
+  <h3>Well look at that...</h3>
+  <div>
+    <p>You are writing in: <span id="analyzed-language"></span></p>
+  </div>
 </div>
 `
 
@@ -85,6 +98,7 @@ customElements.define(
     #longestWord
     #errorMessage
     #countStatistics
+    #analyzeLanguage
 
     /**
      * Creates an instance of the current type.
@@ -99,6 +113,7 @@ customElements.define(
       this.#sentenceCount = this.shadowRoot.querySelector('#sentence-count')
       this.#longestWord = this.shadowRoot.querySelector('#longest-word')
       this.#countStatistics = this.shadowRoot.querySelector('#count-statistics')
+      this.#analyzeLanguage = this.shadowRoot.querySelector('#analyze-language')
       this.#errorMessage = this.shadowRoot.querySelector('#error-message')
       this.inputText = this.shadowRoot.querySelector('#input-text')
 
@@ -136,6 +151,7 @@ customElements.define(
           this.#sentenceCount.textContent = 0
           this.#longestWord.textContent = ''
           this.#countStatistics.textContent = ''
+          this.#analyzeLanguage.textContent = ''
         } else {
           this.#errorMessage.textContent = ''
           this.countWords()
@@ -143,6 +159,7 @@ customElements.define(
           this.countSentences()
           this.findLongestWord(words)
           this.countCharactersStatistics(text)
+          this.analyzeLanguage(text)
         }
       }
     }
@@ -231,7 +248,6 @@ customElements.define(
         characterStatistics.characterCount++ // Increment character count
       }
 
-      // Update the displayed counts
       this.shadowRoot.querySelector('#uppercase-count').textContent = characterStatistics.uppercaseCount
       this.shadowRoot.querySelector('#lowercase-count').textContent = characterStatistics.lowercaseCount
       this.shadowRoot.querySelector('#digit-count').textContent = characterStatistics.digitCount
@@ -239,6 +255,57 @@ customElements.define(
       this.shadowRoot.querySelector('#special-character-count').textContent = characterStatistics.specialCharacterCount
 
       return characterStatistics
+    }
+
+    /**
+     * Analyzes the language of the input text.
+     *
+     * @param {string} text - The input text to analyze the language of.
+     * @returns {string} - The analyzed language code.
+     */
+    analyzeLanguage (text) {
+      // Define common words/phrases in different languages
+      const languagePatterns = {
+        Swedish: ['och', 'det', 'att', 'är', 'i'],
+        English: ['the', 'and', 'you', 'that', 'this'],
+        Spanish: ['el', 'y', 'que', 'en', 'por'],
+        French: ['le', 'et', 'que', 'en', 'à'],
+        Deutch: ['und', 'die', 'der', 'ich', 'in']
+      }
+
+      const wordFrequency = {}
+
+      // Split the input text into words
+      const words = text.split(/\s+/)
+
+      // Count the occurrence of each word
+      words.forEach((word) => {
+        word = word.toLowerCase()
+        for (const language in languagePatterns) {
+          if (!wordFrequency[language]) {
+            wordFrequency[language] = 0
+          }
+          if (languagePatterns[language].includes(word)) {
+            wordFrequency[language]++
+          }
+        }
+      })
+
+      // Find the language with the highest word frequency
+      let analyzedLanguage = ''
+      let maxFrequency = 0
+
+      for (const language in wordFrequency) {
+        if (wordFrequency[language] > maxFrequency) {
+          analyzedLanguage = language
+          maxFrequency = wordFrequency[language]
+        }
+      }
+
+      const detectedLanguageElement = this.shadowRoot.querySelector('#analyzed-language')
+      detectedLanguageElement.textContent = analyzedLanguage
+
+      return analyzedLanguage
     }
   }
 )
