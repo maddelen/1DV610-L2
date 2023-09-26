@@ -73,6 +73,8 @@ template.innerHTML = `
     <p>Digit Characters: <span id="digit-count">0</span></p>
     <p>Whitespace Characters: <span id="whitespace-count">0</span></p>
     <p>Special Characters: <span id="special-character-count">0</span></p>
+    <p>Vowel Count: <span id="vowel-count">0</span></p>
+    <p>Consonant Count: <span id="consonant-count">0</span></p>
   </div>
 </div>
 <div id="analyze-language">
@@ -96,6 +98,8 @@ customElements.define(
     #characterCount
     #sentenceCount
     #longestWord
+    #vowelCount
+    #consonantCount
     #errorMessage
     #countStatistics
     #analyzeLanguage
@@ -113,6 +117,8 @@ customElements.define(
       this.#sentenceCount = this.shadowRoot.querySelector('#sentence-count')
       this.#longestWord = this.shadowRoot.querySelector('#longest-word')
       this.#countStatistics = this.shadowRoot.querySelector('#count-statistics')
+      this.#vowelCount = this.shadowRoot.querySelector('#vowel-count')
+      this.#consonantCount = this.shadowRoot.querySelector('#consonant-count')
       this.#analyzeLanguage = this.shadowRoot.querySelector('#analyze-language')
       this.#errorMessage = this.shadowRoot.querySelector('#error-message')
       this.inputText = this.shadowRoot.querySelector('#input-text')
@@ -139,6 +145,8 @@ customElements.define(
         this.#characterCount.textContent = 0
         this.#sentenceCount.textContent = 0
         this.#longestWord.textContent = ''
+        this.#vowelCount.textContent = 0
+        this.#consonantCount.textContent = 0
       } else {
         // Calculate the word count.
         const words = text.split(/\s+/).filter(word => word !== '')
@@ -151,6 +159,8 @@ customElements.define(
           this.#sentenceCount.textContent = 0
           this.#longestWord.textContent = ''
           this.#countStatistics.textContent = ''
+          this.#vowelCount.textContent = 0
+          this.#consonantCount.textContent = 0
           this.#analyzeLanguage.textContent = ''
         } else {
           this.#errorMessage.textContent = ''
@@ -159,6 +169,8 @@ customElements.define(
           this.countSentences()
           this.findLongestWord(words)
           this.countCharactersStatistics(text)
+          this.countVowels(text)
+          this.countConsonants(text)
           this.analyzeLanguage(text)
         }
       }
@@ -214,6 +226,43 @@ customElements.define(
       this.#sentenceCount.textContent = sentenceCount
     }
 
+    /**
+     * Counts the number of vowels in the input text.
+     *
+     * @param {string} text - The input text to count vowels from.
+     * @returns {number} - The number of vowels.
+     */
+    countVowels(text) {
+      const vowels = 'aeiouAEIOU'
+      let vowelCount = 0
+
+      for (let i = 0; i < text.length; i++) {
+        if (vowels.includes(text.charAt(i))) {
+          vowelCount++
+        }
+      }
+
+      this.#vowelCount.textContent = vowelCount
+    }
+
+    /**
+     * Counts the number of consonants in the input text.
+     *
+     * @param {string} text - The input text to count consonants from.
+     * @returns {number} - The number of consonants.
+     */
+    countConsonants(text) {
+      const consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+      let consonantCount = 0
+
+      for (let i = 0; i < text.length; i++) {
+        if (consonants.includes(text.charAt(i))) {
+          consonantCount++
+        }
+      }
+
+      this.#consonantCount.textContent = consonantCount
+    }
     /**
      * Calculates character statistics for the input text and updates the displayed character count.
      *
