@@ -1,4 +1,3 @@
-
 import { MyTextAnalysisModule } from '../my-text-analysis-module/my-text-analysis-module.js'
 
 const template = document.createElement('template')
@@ -50,7 +49,7 @@ template.innerHTML = `
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
   }
 </style>
-<div id=my-text-analysis>
+<div id="my-text-analysis">
   <div id="my-text-analysis-container">
     <h1>The text analysis</h1>
     <textarea id="input-text" rows="10" cols="50" placeholder="Enter your text here..."></textarea>
@@ -58,6 +57,7 @@ template.innerHTML = `
     <p>Character Count: <span id="character-count">0</span></p>
     <p>Sentence Count: <span id="sentence-count">0</span></p>
     <p>Longest Word: <span id="longest-word"></span></p>
+    <p>Most Frequent Word: <span id="most-frequent-word"></span></p> <!-- Added this line -->
     <p class="error-message" id="error-message"></p>
   </div>
   <div id="statistics-container">
@@ -81,9 +81,9 @@ template.innerHTML = `
 </div>
 `
 
-// Define a custom element class that extends HTMLElement
 class MyTextAnalysis extends HTMLElement {
-  constructor() {
+
+  constructor () {
     super()
 
     this.textAnalysisModule = new MyTextAnalysisModule()
@@ -97,6 +97,7 @@ class MyTextAnalysis extends HTMLElement {
     this.characterCount = this.shadowRoot.getElementById('character-count')
     this.sentenceCount = this.shadowRoot.getElementById('sentence-count')
     this.longestWord = this.shadowRoot.getElementById('longest-word')
+    this.mostFrequentWord = this.shadowRoot.getElementById('most-frequent-word')
     this.errorMessage = this.shadowRoot.getElementById('error-message')
     this.uppercaseCount = this.shadowRoot.getElementById('uppercase-count')
     this.lowercaseCount = this.shadowRoot.getElementById('lowercase-count')
@@ -108,7 +109,10 @@ class MyTextAnalysis extends HTMLElement {
     this.analyzedLanguage = this.shadowRoot.getElementById('analyzed-language')
   }
 
-  connectedCallback() {
+  /**
+   *
+   */
+  connectedCallback () {
     this.textarea.addEventListener('input', () => {
       const text = this.textarea.value
 
@@ -116,11 +120,13 @@ class MyTextAnalysis extends HTMLElement {
       const characterCount = this.textAnalysisModule.countCharacters(text)
       const sentenceCount = this.textAnalysisModule.countSentences(text)
       const longestWord = this.textAnalysisModule.findLongestWord(text)
+      const mostFrequentWord = this.textAnalysisModule.findMostFrequentWord(text)
 
       this.wordCount.textContent = text.split(/\s+/).filter(word => word !== '').length
       this.characterCount.textContent = characterCount
       this.sentenceCount.textContent = sentenceCount
       this.longestWord.textContent = longestWord
+      this.mostFrequentWord.textContent = mostFrequentWord
       this.errorMessage.textContent = validationError.errorMessage
 
       const characterStatistics = this.textAnalysisModule.countStatistics(text)
@@ -137,4 +143,3 @@ class MyTextAnalysis extends HTMLElement {
 }
 
 customElements.define('my-text-analysis', MyTextAnalysis)
-

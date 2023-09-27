@@ -89,6 +89,42 @@ export class MyTextAnalysisModule {
   }
 
   /**
+   * Finds the most frequent word in the input text.
+   *
+   * @param {string} text - The input text to find the most frequent word from.
+   * @returns {string} - The most frequent word.
+   */
+  findMostFrequentWord(text) {
+    const words = text.split(/\s+/).filter(word => word !== '')
+  
+    if (words.length === 0) {
+      return ''
+    } else {
+      const wordFrequency = {}
+  
+      for (const word of words) {
+        const lowercaseWord = word.toLowerCase()
+        if (!wordFrequency[lowercaseWord]) {
+          wordFrequency[lowercaseWord] = 0
+        }
+        wordFrequency[lowercaseWord]++
+      }
+  
+      let mostFrequentWord = ''
+      let maxFrequency = 0
+  
+      for (const word in wordFrequency) {
+        if (wordFrequency[word] > maxFrequency) {
+          mostFrequentWord = word
+          maxFrequency = wordFrequency[word]
+        }
+      }
+  
+      return mostFrequentWord
+    }
+  }
+
+  /**
    * Counts the number of vowels in the input text.
    *
    * @param {string} text - The input text to count vowels from.
