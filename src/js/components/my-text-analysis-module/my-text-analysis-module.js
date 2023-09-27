@@ -1,5 +1,5 @@
 /**
- * The my-text-analysis-module without a user interface.
+ * The my-text-analysis-module.
  *
  * @author Maddelen Hedenström <mh222vu@student.lnu.se>
  * @version 1.0.0
@@ -169,11 +169,11 @@ export class MyTextAnalysisModule {
   analyzeLanguage (text) {
     // Define common words/phrases in different languages
     const languagePatterns = {
-      swe: ['och', 'det', 'att', 'är', 'i'],
-      eng: ['the', 'and', 'you', 'that', 'this'],
-      spa: ['el', 'y', 'que', 'en', 'por'],
-      fre: ['le', 'et', 'que', 'en', 'à'],
-      deu: ['und', 'die', 'der', 'ich', 'in']
+      Swedish: ['och', 'det', 'att', 'är', 'i'],
+      English: ['the', 'and', 'you', 'that', 'this'],
+      Spanish: ['el', 'y', 'que', 'en', 'por'],
+      French: ['le', 'et', 'que', 'en', 'à'],
+      German: ['und', 'die', 'der', 'ich', 'in']
     }
 
     const wordFrequency = {}

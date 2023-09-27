@@ -3,7 +3,7 @@
 This is a student project in the course Mjukvarukvalitet 1dv610 at Linneuniversitetet.
 
 ## Description
-This application will be able to count the number of words you entered, the number of sentences and the number of characters. It will also let you know which word is the longest in your text input. But that is not all. You will also get the number of uppercase, lowercase, digits, whitespace and speciel characters in you text.
+This application will be able to count the number of words you entered, the number of sentences and the number of characters. It will also let you know which word is the longest in your text input. But that is not all. You will also get the number of uppercase, lowercase, digits, whitespace, speciel characters, vowels and consonants in you text. It will also give it a try to identify what language you are writing in.
 
 ## Installation
 1. Clone the git repository and place it somewhere on your computer.

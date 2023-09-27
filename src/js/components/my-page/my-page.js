@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-import '../my-text-analysis-app'
+import '../test-app'
 
 const IMG_URL = (new URL('images/bg.jpg', import.meta.url)).href
 
