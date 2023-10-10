@@ -81,8 +81,13 @@ template.innerHTML = `
 </div>
 `
 
+/**
+ * MyTextAnalysis is a custom element that analyzes text.
+ */
 class MyTextAnalysis extends HTMLElement {
-
+  /**
+   * Creates a new MyTextAnalysis custom element.
+   */
   constructor () {
     super()
 
@@ -110,7 +115,7 @@ class MyTextAnalysis extends HTMLElement {
   }
 
   /**
-   *
+   * Called after the element is inserted into the DOM.
    */
   connectedCallback () {
     this.textarea.addEventListener('input', () => {

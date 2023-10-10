@@ -94,14 +94,14 @@ export class MyTextAnalysisModule {
    * @param {string} text - The input text to find the most frequent word from.
    * @returns {string} - The most frequent word.
    */
-  findMostFrequentWord(text) {
+  findMostFrequentWord (text) {
     const words = text.split(/\s+/).filter(word => word !== '')
-  
+
     if (words.length === 0) {
       return ''
     } else {
       const wordFrequency = {}
-  
+
       for (const word of words) {
         const lowercaseWord = word.toLowerCase()
         if (!wordFrequency[lowercaseWord]) {
@@ -109,17 +109,17 @@ export class MyTextAnalysisModule {
         }
         wordFrequency[lowercaseWord]++
       }
-  
+
       let mostFrequentWord = ''
       let maxFrequency = 0
-  
+
       for (const word in wordFrequency) {
         if (wordFrequency[word] > maxFrequency) {
           mostFrequentWord = word
           maxFrequency = wordFrequency[word]
         }
       }
-  
+
       return mostFrequentWord
     }
   }
@@ -163,37 +163,88 @@ export class MyTextAnalysisModule {
   }
 
   /**
-   * Provides character statistics.
+   * Counts the number of uppercase characters in the input text.
    *
-   * @param {string} text - The input text to count characters from.
-   * @returns {object} - An object containing the character count and statistics.
+   * @param {string} text - The input text to count uppercase characters from.
+   * @returns {number} - The number of uppercase characters.
    */
-  countStatistics (text) {
-    const characterStatistics = {
-      uppercaseCount: 0,
-      lowercaseCount: 0,
-      digitCount: 0,
-      whitespaceCount: 0,
-      specialCharacterCount: 0
-    }
-
+  countUppercase (text) {
+    let uppercaseCount = 0
     for (let i = 0; i < text.length; i++) {
       const char = text.charAt(i)
-
       if (char >= 'A' && char <= 'Z') {
-        characterStatistics.uppercaseCount++
-      } else if (char >= 'a' && char <= 'z') {
-        characterStatistics.lowercaseCount++
-      } else if (char >= '0' && char <= '9') {
-        characterStatistics.digitCount++
-      } else if (char === ' ' || char === '\t' || char === '\n' || char === '\r' || char === '\f') {
-        characterStatistics.whitespaceCount++
-      } else {
-        characterStatistics.specialCharacterCount++
+        uppercaseCount++
       }
     }
+    return uppercaseCount
+  }
 
-    return characterStatistics
+  /**
+   * Counts the number of lowercase characters in the input text.
+   *
+   * @param {string} text - The input text to count lowercase characters from.
+   * @returns {number} - The number of lowercase characters.
+   */
+  countLowercase (text) {
+    let lowercaseCount = 0
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i)
+      if (char >= 'a' && char <= 'z') {
+        lowercaseCount++
+      }
+    }
+    return lowercaseCount
+  }
+
+  /**
+   * Counts the number of digits in the input text.
+   *
+   * @param {string} text - The input text to count digits from.
+   * @returns {number} - The number of digits.
+   */
+  countDigits (text) {
+    let digitCount = 0
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i)
+      if (char >= '0' && char <= '9') {
+        digitCount++
+      }
+    }
+    return digitCount
+  }
+
+  /**
+   * Counts the number of whitespaces in the input text.
+   *
+   * @param {string} text - The input text to count whitespaces from.
+   * @returns {number} - The number of whitespaces.
+   */
+  countWhitespace (text) {
+    let whitespaceCount = 0
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i)
+      if (char === ' ' || char === '\t' || char === '\n' || char === '\r' || char === '\f') {
+        whitespaceCount++
+      }
+    }
+    return whitespaceCount
+  }
+
+  /**
+   * Counts the number of special characters in the input text.
+   *
+   * @param {string} text - The input text to count special characters from.
+   * @returns {number} - The number of special characters.
+   */
+  countSpecialCharacters (text) {
+    let specialCharacterCount = 0
+    for (let i = 0; i < text.length; i++) {
+      const char = text.charAt(i)
+      if (!(char >= 'A' && char <= 'Z') && !(char >= 'a' && char <= 'z') && !(char >= '0' && char <= '9') && !(char === ' ' || char === '\t' || char === '\n' || char === '\r' || char === '\f')) {
+        specialCharacterCount++
+      }
+    }
+    return specialCharacterCount
   }
 
   /**
