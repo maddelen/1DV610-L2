@@ -134,7 +134,14 @@ class MyTextAnalysis extends HTMLElement {
       this.mostFrequentWord.textContent = mostFrequentWord
       this.errorMessage.textContent = validationError.errorMessage
 
-      const characterStatistics = this.textAnalysisModule.countStatistics(text)
+      const characterStatistics = {
+        uppercaseCount: this.textAnalysisModule.countUppercase(text),
+        lowercaseCount: this.textAnalysisModule.countLowercase(text),
+        digitCount: this.textAnalysisModule.countDigits(text),
+        whitespaceCount: this.textAnalysisModule.countWhitespace(text),
+        specialCharacterCount: this.textAnalysisModule.countSpecialCharacters(text)
+      }
+      
       this.uppercaseCount.textContent = characterStatistics.uppercaseCount
       this.lowercaseCount.textContent = characterStatistics.lowercaseCount
       this.digitCount.textContent = characterStatistics.digitCount
@@ -143,6 +150,7 @@ class MyTextAnalysis extends HTMLElement {
       this.vowelCount.textContent = this.textAnalysisModule.countVowels(text)
       this.consonantCount.textContent = this.textAnalysisModule.countConsonants(text)
       this.analyzedLanguage.textContent = this.textAnalysisModule.analyzeLanguage(text)
+      
     })
   }
 }
