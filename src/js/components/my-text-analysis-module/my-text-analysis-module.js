@@ -15,7 +15,7 @@ export class MyTextAnalysisModule {
    * @param {string} text - The input text to analyze.
    * @returns {object} - An object containing the analysis results or error messages.
    */
-  validateInput (text) {
+  validateUserInput (text) {
     const validationError = {
       errorMessage: ''
     }

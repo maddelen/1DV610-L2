@@ -121,7 +121,7 @@ class MyTextAnalysis extends HTMLElement {
     this.textarea.addEventListener('input', () => {
       const text = this.textarea.value
 
-      const validationError = this.textAnalysisModule.validateInput(text)
+      const validationError = this.textAnalysisModule.validateUserInput(text)
       const characterCount = this.textAnalysisModule.countCharacters(text)
       const sentenceCount = this.textAnalysisModule.countSentences(text)
       const longestWord = this.textAnalysisModule.findLongestWord(text)
